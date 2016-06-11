@@ -16,7 +16,7 @@ defmodule Simple.Repo do
 end
 
 defmodule Weather do
-  use Ecto.Model
+  use Ecto.Schema
 
   @primary_key {:id, :binary_id, autogenerate: true}
 

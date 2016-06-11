@@ -7,7 +7,7 @@ defmodule Mongo.Ecto.NormalizedQueryTest do
   import Ecto.Query
 
   defmodule Model do
-    use Ecto.Model
+    use Ecto.Schema
 
     schema "model" do
       field :x, :integer

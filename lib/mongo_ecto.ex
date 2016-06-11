@@ -48,7 +48,7 @@ defmodule Mongo.Ecto do
   With the repository defined, we can define our models:
 
       defmodule Weather do
-        use Ecto.Model
+        use Ecto.Schema
 
         # see the note below for explanation of that line
         @primary_key {:id, :binary_id, autogenerate: true}
@@ -81,14 +81,14 @@ defmodule Mongo.Ecto do
       defmodule MyApp.Model do
         defmacro __using__(_) do
           quote do
-            use Ecto.Model
+            use Ecto.Schema
             @primary_key {:id, :binary_id, autogenerate: true}
             @foreign_key_type :binary_id # For associations
           end
         end
       end
 
-  Now, instead of `use Ecto.Model`, you can `use MyApp.Model` in your
+  Now, instead of `use Ecto.Schema`, you can `use MyApp.Model` in your
   modules. All Ecto types, except `:decimal`, are supported by `Mongo.Ecto`.
 
   By defining a schema, Ecto automatically defines a struct with
@@ -218,7 +218,7 @@ defmodule Mongo.Ecto do
   Ecto supports defining associations on schemas:
 
       defmodule Post do
-        use Ecto.Model
+        use Ecto.Schema
 
         @primary_key {:id, :binary_id, autogenerate: true}
         @foreign_key_type :binary_id
@@ -237,7 +237,7 @@ defmodule Mongo.Ecto do
 
   Some more elaborate association schemas may force Ecto to use joins in
   some queries, that are not supported by MongoDB as well. One such call
-  is `Ecto.Model.assoc/2` function with a `has_many :through` association.
+  is `Ecto.assoc/2` function with a `has_many :through` association.
 
   You can find more information about defining associations and each respective
   association module in `Ecto.Schema` docs.
