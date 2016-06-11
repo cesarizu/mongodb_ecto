@@ -288,6 +288,7 @@ defmodule Mongo.Ecto do
         def up do
           create table(:my_table, options: [capped: true, size: 1024])
           create index(:my_table, [:value])
+          create index(:my_table, [:geo_point], using: "2dindex")
           create unique_index(:my_table, [:unique_value])
           execute touch: "my_table", data: true, index: true
         end
@@ -648,7 +649,7 @@ defmodule Mongo.Ecto do
     index = [name: to_string(command.name),
              unique: command.unique,
              background: command.concurrently,
-             key: Enum.map(command.columns, &{&1, 1}),
+             key: Enum.map(command.columns, &{&1, command.using || 1}),
              ns: namespace(repo, command.table)]
 
     query = %WriteQuery{coll: "system.indexes", command: index}
