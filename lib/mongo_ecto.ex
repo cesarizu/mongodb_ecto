@@ -614,6 +614,11 @@ defmodule Mongo.Ecto do
   def supports_ddl_transaction?, do: false
 
   @doc false
+  def in_transaction?(_repo) do
+    false
+  end
+
+  @doc false
   def execute_ddl(_repo, string, _opts) when is_binary(string) do
     raise ArgumentError, "MongoDB adapter does not support SQL statements in `execute`"
   end
